@@ -1,0 +1,12 @@
+{
+  "name": "ACS TE-Cloud",
+  "short_name": "TE-Cloud",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
