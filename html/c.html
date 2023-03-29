@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>前端分页示例</title>
+  <style>
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .pagination button {
+      margin: 0 5px;
+    }
+  </style>
+</head>
+<body>
+  <ul id="dataList"></ul>
+  <div class="pagination">
+    <button id="prevBtn" onclick="changePage(-1)">上一页</button>
+    <button id="nextBtn" onclick="changePage(1)">下一页</button>
+  </div>
+
+  <script>
+    const data = Array.from({ length: 50 }, (_, index) => `数据项 ${index + 1}`);
+    const dataList = document.getElementById("dataList");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    const itemsPerPage = 10;
+    let currentPage = 1;
+
+    function displayData() {
+      dataList.innerHTML = "";
+
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+
+      const currentPageData = data.slice(start, end);
+      currentPageData.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        dataList.appendChild(li);
+      });
+
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = currentPage === Math.ceil(data.length / itemsPerPage);
+    }
+
+    function changePage(step) {
+      currentPage += step;
+      displayData();
+    }
+
+    displayData();
+  </script>
+</body>
+</html>

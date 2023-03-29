@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        class ChromeNotification {
+            constructor(title, message) {
+                this.title = title;
+                this.message = message;
+            }
+
+            show() {
+                // 检查浏览器是否支持通知
+                if (!("Notification" in window)) {
+                    console.error("浏览器不支持通知");
+                    return;
+                }
+
+                // 请求用户权限
+                Notification.requestPermission().then(function (permission) {
+                    if (permission === "granted") {
+                        // 显示通知
+                        let notification = new Notification("Chrome Notification", {
+                            body: `${this.title}: ${this.message}`,
+                        });
+                        // 点击通知时触发事件
+                        notification.onclick = function () {
+                            console.log("通知被点击");
+                        };
+                    }
+                });
+            }
+        }
+
+        // 创建一个新的 ChromeNotification 实例，并显示通知
+        let notification = new ChromeNotification(
+            "Chrome",
+            "已将消息通知整合到 Windows 10 的通知中心"
+        );
+        notification.show();
+
+    </script>
+</body>
+
+</html>

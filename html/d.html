@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        // 获取网络状态
+        function getNetworkStatus() {
+            const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+
+            if (connection) {
+                // 获取网络类型（如 'wifi', 'cellular' 等）
+                const type = connection.type;
+
+                // 获取网络速度的估计值（单位：兆比特/秒）
+                const downlink = connection.downlink;
+
+                // 获取网络连接状态
+                const effectiveType = connection.effectiveType;
+
+                console.log(`网络类型: ${type}`);
+                console.log(`下载速度: ${downlink} Mbps`);
+                console.log(`有效网络类型: ${effectiveType}`);
+
+                return {type, downlink, effectiveType};
+            } else {
+                console.log('无法获取网络状态');
+                return null;
+            }
+        }
+
+
+        // 监听网络状态变化
+        function onNetworkStatusChange() {
+            const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+
+            if (connection) {
+                connection.addEventListener('change', () => {
+                    const {type, downlink, effectiveType} = getNetworkStatus();
+                    console.log('网络状态已更改');
+                });
+            } else {
+                console.log('无法监听网络状态变化');
+            }
+        }
+
+        // 使用 onNetworkStatusChange 函数
+        onNetworkStatusChange();
+
+
+        // 使用 getNetworkStatus 函数
+        const networkStatus = getNetworkStatus();
+
+        function isOnline() {
+            const onlineStatus = navigator.onLine;
+
+            if (onlineStatus) {
+                console.log("设备已联网");
+            } else {
+                console.log("设备未联网");
+            }
+
+            return onlineStatus;
+        }
+
+        // 使用 isOnline 函数
+        const onlineStatus = isOnline();
+
+        window.addEventListener("online", () => {
+            console.log("设备已联网");
+        });
+
+        window.addEventListener("offline", () => {
+            console.log("设备未联网");
+        });
+
+
+    </script>
+</body>
+
+</html>

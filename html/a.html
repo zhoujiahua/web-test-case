@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="ibx"></div>
+
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <script src="https://layuion.com/static/json/table/user.json?page=1&limit=10"></script>
+    <script>
+        
+
+
+        // console.log(countdown("2023-03-18"));
+        window.clearInterval(timer);
+        var timer = setInterval(() => {
+            document.querySelector(".ibx").innerHTML = countdown("2023-03-18");
+            // console.log(countdown("2023-03-18"));
+        }, 1000);
+
+        function countdown(endDate) {
+            let end = dayjs(endDate); // 将结束时间转换为Day.js对象
+            let now = dayjs(); // 获取当前时间
+            let diff = end.diff(now, 'second'); // 计算时间差，单位为秒
+            if (diff < 0) {
+                // 如果时间差为负数，即结束时间早于当前时间，则倒计时已结束
+                return '倒计时已结束';
+            }
+            let days = Math.floor(diff / (24 * 60 * 60)); // 计算天数
+            let hours = Math.floor((diff - days * 24 * 60 * 60) / (60 * 60)); // 计算小时数
+            let minutes = Math.floor((diff - days * 24 * 60 * 60 - hours * 60 * 60) / 60); // 计算分钟数
+            let seconds = diff - days * 24 * 60 * 60 - hours * 60 * 60 - minutes * 60; // 计算秒数
+            return `${days}天${hours}小时${minutes}分钟${seconds}秒`;
+        }
+    </script>
+</body>
+
+</html>

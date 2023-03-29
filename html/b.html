@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="icon" href="data:,">
+</head>
+
+<body>
+
+
+    <script>
+        // let prevBytesSent = 0;
+        // let prevBytesReceived = 0;
+
+        // setInterval(() => {
+        //     const entries = performance.getEntries();
+        //     let bytesSent = 0;
+        //     let bytesReceived = 0;
+
+        //     for (let i = 0; i < entries.length; i++) {
+        //         const entry = entries[i];
+        //         bytesSent += entry.transferSize;
+        //         bytesReceived += entry.transferSize;
+        //     }
+
+        //     const bytesSentPerSec = (bytesSent - prevBytesSent) / 1;
+        //     const bytesReceivedPerSec = (bytesReceived - prevBytesReceived) / 1;
+
+        //     console.log(`Upload speed: ${bytesSentPerSec} B/s`);
+        //     console.log(`Download speed: ${bytesReceivedPerSec} B/s`);
+
+        //     prevBytesSent = bytesSent;
+        //     prevBytesReceived = bytesReceived;
+        // }, 1000);
+
+        const userLang = navigator.language || navigator.userLanguage;
+        console.log(userLang); // 输出用户的浏览器语言
+
+        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        console.log(userTimeZone); // 输出用户的时区
+
+
+        // 检测 Chrome 浏览器版本
+        const isChrome = /Chrome\/(\d+)/.test(navigator.userAgent) && parseInt(RegExp.$1) < 80;
+
+        // 检测 Firefox 浏览器版本
+        const isFirefox = /Firefox\/(\d+)/.test(navigator.userAgent) && parseInt(RegExp.$1) < 55;
+
+        // 如果浏览器版本低于要求，提示用户升级并提供下载链接
+        if (isChrome || isFirefox) {
+            const browserName = isChrome ? 'Chrome' : 'Firefox';
+            const downloadLink = isChrome ? 'https://www.google.com/chrome/' : 'https://www.mozilla.org/en-US/firefox/';
+            const message = `您的 ${browserName} 浏览器版本过低，请升级到最新版本以获得更好的浏览体验。您可以前往以下链接下载最新版本：${downloadLink}`;
+            alert(message);
+        }
+
+    </script>
+</body>
+
+</html>

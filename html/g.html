@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TE-Cloud Notification</title>
+</head>
+
+<body>
+    <h1>TE-Cloud Notification</h1>
+    <script>
+        if ("Notification" in window) {
+            Notification.requestPermission().then(function (permission) {
+                if (permission === "granted") {
+                    var notification = new Notification("TE-Cloud Notification", {
+                        body: "您ADVANTEST Tester01的机时确认成功, 请点击查看。",
+                        icon: "https://sandbox.te-cloud.advantest.com.cn/img/acs.logo.d0cd1729.png",
+                        badge: "/hz.png",
+                        silent: false
+                    });
+                    // 点击通知时触发事件
+                    notification.onclick = function () {
+                        console.log("通知被点击");
+                        window.location.href = "https://sandbox.te-cloud.advantest.com.cn/dashboard/mybooking";
+                        // window.open('https://sandbox.te-cloud.advantest.com.cn/dashboard/mybooking');
+                    };
+                }
+            });
+
+            // 清除Notification对象所有通知，使用close()方法。
+            // 获取当前所有通知的 ID
+            var notifications = window.Notification.get();
+            var notificationIds = notifications.map(function (notification) {
+                return notification.notificationId;
+            });
+
+            // 关闭所有通知
+            notificationIds.forEach(function (id) {
+                window.Notification.close(id);
+            });
+
+        }
+    </script>
+</body>
+
+</html>

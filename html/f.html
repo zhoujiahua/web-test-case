@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TE-Cloud</title>
+</head>
+
+<body>
+
+
+    <script>
+        /**
+         *Notification 对象用于在浏览器中显示通知。Notification 对象的一些配置和属性：
+         *配置:
+         *title：通知的标题。
+         *options：一个包含通知配置选项的对象，例如 body、icon 和 badge。
+         *属性:
+         *title：通知的标题。
+         *body：通知的正文。
+         *icon：通知的图标。
+         *badge：在通知图标上添加的小徽章。
+         *silent：一个布尔值，指示通知是否应该以静音方式显示，即没有声音或震动。
+         */
+
+        function ChromeNotification(title, message) {
+            this.title = title;
+            this.message = message;
+        }
+
+        ChromeNotification.prototype.show = function () {
+            // 检查浏览器是否支持通知
+            if (!("Notification" in window)) {
+                console.error("浏览器不支持通知");
+                return;
+            }
+
+            // 请求用户权限
+            Notification.requestPermission(function (permission) {
+                if (permission === "granted") {
+                    // 显示通知
+                    var notification = new Notification("TE-Cloud Notification", {
+                        body: this.title + ": " + this.message,
+                    });
+                    // 点击通知时触发事件
+                    notification.onclick = function () {
+                        console.log("通知被点击");
+                    };
+                }
+            }.bind(this));
+        };
+
+        // 创建一个新的 ChromeNotification 实例，并显示通知
+        var notification = new ChromeNotification(
+            "Confirmed",
+            "您有新的消息提醒"
+        );
+        notification.show();
+    </script>
+</body>
+
+</html>
